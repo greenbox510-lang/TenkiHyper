@@ -153,3 +153,6 @@ def quiz():
         return Response(
             json.dumps({"error": "failed to generate quiz", "detail": str(e)}, 500,ensure_ascii=False),
                 mimetype="application/json")
+
+if __name__ == "__main__":
+    app.run(debug=True)
