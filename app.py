@@ -24,10 +24,8 @@ app = Flask(__name__)
 @app.route("/")
 
 def index():
-    raw = get_weather_condition("Kyoto")
-    condition = normalize_condition(raw)
-    img_filename = get_character_image_filename(condition)
-
+    
+    return "OK"
 
     print("DEBUG img_filename:", img_filename)
 
