@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>京都天気クイズ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <!-- キャラクター -->
+    <img id="character" src="{{ url_for('static', filename='images/' ~ character_image) }}" alt="キャスター" class="character">
+
+
+
+
+
+    <!-- 天気エフェクト -->
+    <div id="weather-effect"></div>
+
+    <!-- 京都背景はCSSで設定 -->
+    <div class="quiz-area">
+      <h1>京都キャスターの天気クイズ</h1>
+      <div id="weather"></div>
+      <div id="quiz"></div>
+      <div id="result"></div>
+    </div>
+  </div>
+
+  <script>
+    async function loadQuiz() {
+      const response = await fetch("/api/quiz");
+      const data = await response.json();
+
+      document.getElementById("weather").textContent = "天気: " + data.weather;
+
+      const quizDiv = document.getElementById("quiz");
+      quizDiv.innerHTML = "<h2>" + data.quiz.question + "</h2>";
+
+      data.quiz.options.forEach(option => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.onclick = () => checkAnswer(option, data.quiz.answer);
+        quizDiv.appendChild(button);
+        quizDiv.appendChild(document.createElement("br"));
+      });
+
+      // 天気エフェクトを切り替え
+      const effect = document.getElementById("weather-effect");
+      if (data.weather.includes("晴")) {
+        effect.textContent = "☀️";
+        effect.className = "";
+        effect.classList.add("sun");
+      } else if (data.weather.includes("雨")) {
+        effect.textContent = "🌧️";
+        effect.className = "";
+        effect.classList.add("rain");
+      } else {
+        effect.textContent = "☁️";
+        effect.className = "";
+        effect.classList.add("cloud");
+      }
+    }
+
+    function checkAnswer(selected, answer) {
+      const resultDiv = document.getElementById("result");
+      if (selected === answer) {
+        resultDiv.textContent = "🎉 正解！";
+      } else {
+        resultDiv.textContent = "😅 残念！ 正解は " + answer;
+      }
+    }
+
+    loadQuiz();
+
+
+  </script>
+
+</body>
+</html>

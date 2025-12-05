@@ -1,0 +1,81 @@
+body {
+  background: url("/static/kyoto.jpg") no-repeat center center fixed;
+  background-size: cover;
+  font-family: sans-serif;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+}
+
+.container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.character {
+  width: 200px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
+.quiz-area {
+  background: rgba(0,0,0,0.5);
+  padding: 100px;
+  border-radius: 10px;
+}
+
+button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+#weather-effect {
+  font-size: 100px;       /* 大きくする */
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 5;}
+
+.sun {
+  animation: spin 10s linear infinite;
+}
+
+.cloud {
+  animation: float 8s linear infinite;
+}
+
+.rain {
+  animation: drop 2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes float {
+  from { transform: translateX(0); }
+  to   { transform: translateX(50px); }
+}
+
+@keyframes drop {
+  from { transform: translateY(0); }
+  to   { transform: translateY(20px); }
+}
+
+@keyframes floatY {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+.character {
+  width: 200px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+  animation: floatY 3s ease-in-out infinite;
+}
