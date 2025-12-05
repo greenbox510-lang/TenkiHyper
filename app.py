@@ -3,6 +3,7 @@ import os
 from flask import Flask, jsonify, request, Response, render_template, url_for
 import json
 import random
+import sys
 
 # weather.py の関数をインポート
 from weather import get_weather_condition
@@ -21,10 +22,14 @@ API_KEY = os.getenv("OWM_API_KEY")
 
 app = Flask(__name__)
 @app.route("/")
+
 def index():
     raw = get_weather_condition("Kyoto")
     condition = normalize_condition(raw)
     img_filename = get_character_image_filename(condition)
+
+    print("DEBUG img_filename:", img_filename)
+    sys.stdout.flush() 
 
 
     print("DEBUG img_filename:", img_filename)
